@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Greenfield Academy</title>
+
+  <!-- Google Fonts: Playfair Display (headings) + DM Sans (body) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- ============================================================
+       INTERNAL CSS
+       ============================================================ -->
+  <style>
+
+    /* ── CSS VARIABLES (color theme & spacing) ── */
+    :root {
+      --navy:   #0d2b55;   /* primary dark blue */
+      --sky:    #1a6fc4;   /* medium blue */
+      --accent: #f5a623;   /* warm gold accent */
+      --light:  #e8f1fb;   /* pale blue background */
+      --white:  #ffffff;
+      --text:   #1e2a3a;
+      --muted:  #5c6e84;
+      --radius: 12px;
+      --shadow: 0 8px 32px rgba(13,43,85,.12);
+    }
+
+    /* ── RESET & BASE ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.65;
+    }
+
+    /* ── UTILITY ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .section-subtitle {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 48px;
+    }
+    section { padding: 90px 0; }
+
+    /* ── HEADER / NAVIGATION ── */
+    header {
+      position: fixed;          /* sticks to top while scrolling */
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--navy);
+      box-shadow: 0 2px 16px rgba(0,0,0,.25);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    /* School name / logo in nav */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo .logo-icon {
+      width: 38px; height: 38px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: grid; place-items: center;
+      font-size: 1.2rem;
+    }
+    .nav-logo span {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--white);
+      letter-spacing: .3px;
+    }
+
+    /* Navigation links */
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 6px;
+    }
+    .nav-links a {
+      display: block;
+      padding: 8px 16px;
+      color: rgba(255,255,255,.8);
+      text-decoration: none;
+      font-size: .95rem;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: background .2s, color .2s;
+    }
+    /* Hover effect on nav links */
+    .nav-links a:hover {
+      background: rgba(255,255,255,.12);
+      color: var(--white);
+    }
+    .nav-links a.active {
+      background: var(--accent);
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    /* Hamburger button (mobile only) */
+    .hamburger {
+      display: none;           /* hidden on desktop */
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px; height: 3px;
+      background: var(--white);
+      border-radius: 3px;
+      transition: transform .3s, opacity .3s;
+    }
+
+    /* ── HERO / HOME SECTION ── */
+    #home {
+      margin-top: 68px;        /* offset for fixed header */
+      min-height: 90vh;
+      background:
+        linear-gradient(135deg, rgba(13,43,85,.88) 0%, rgba(26,111,196,.75) 100%),
+        url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1400&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      padding: 60px 0;
+    }
+
+    .hero-content {
+      max-width: 640px;
+      color: var(--white);
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--navy);
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .hero-content p {
+      font-size: 1.1rem;
+      opacity: .88;
+      margin-bottom: 36px;
+      max-width: 520px;
+    }
+
+    /* Button styles */
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      border: 2px solid transparent;
+      transition: transform .2s, box-shadow .2s, background .2s, color .2s;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.2); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--navy);
+    }
+    .btn-outline {
+      background: transparent;
+      border-color: rgba(255,255,255,.7);
+      color: var(--white);
+      margin-left: 14px;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,.12); }
+
+    /* Welcome popup triggered by JS button */
+    #welcome-msg {
+      display: none;            /* hidden by default */
+      margin-top: 24px;
+      background: rgba(255,255,255,.18);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: var(--radius);
+      padding: 16px 22px;
+      color: var(--white);
+      font-size: 1rem;
+      animation: fadeIn .4s ease;
+    }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--navy);
+      padding: 32px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+    .stat-item { color: var(--white); }
+    .stat-item .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--accent);
+    }
+    .stat-item .label {
+      font-size: .9rem;
+      opacity: .75;
+      margin-top: 4px;
+    }
+
+    /* ── ABOUT SECTION ── */
+    #about { background: var(--light); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .about-image {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      aspect-ratio: 4/3;
+    }
+    .about-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s;
+    }
+    .about-image:hover img { transform: scale(1.04); }
+
+    .about-text .section-title { margin-bottom: 8px; }
+
+    .values-list {
+      list-style: none;
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .values-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .values-list .icon {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      background: var(--sky);
+      color: var(--white);
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 1rem;
+    }
+    .values-list strong { display: block; margin-bottom: 2px; }
+    .values-list p { color: var(--muted); font-size: .93rem; }
+
+    /* ── COURSES SECTION ── */
+    #courses { background: var(--white); }
+
+    .courses-header { text-align: center; }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    /* Individual course card */
+    .course-card {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: var(--white);
+      transition: transform .25s, box-shadow .25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .course-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(13,43,85,.18);
+    }
+
+    .card-img {
+      height: 180px;
+      overflow: hidden;
+    }
+    .card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .4s;
+    }
+    .course-card:hover .card-img img { transform: scale(1.08); }
+
+    .card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .card-tag {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--sky);
+      margin-bottom: 8px;
+    }
+    .card-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .card-body p { color: var(--muted); font-size: .93rem; flex: 1; }
+    .card-footer {
+      padding: 14px 24px;
+      border-top: 1px solid var(--light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: .88rem;
+      color: var(--muted);
+    }
+    .card-footer .enroll-btn {
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: .88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .card-footer .enroll-btn:hover {
+      background: var(--sky);
+      transform: scale(1.04);
+    }
+
+    /* ── CONTACT SECTION ── */
+    #contact { background: var(--light); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+    .contact-info p { color: var(--muted); margin-bottom: 28px; }
+
+    .info-items { display: flex; flex-direction: column; gap: 18px; }
+    .info-item { display: flex; align-items: flex-start; gap: 14px; }
+    .info-item .icon {
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 10px;
+      display: grid; place-items: center;
+      font-size: 1.05rem;
+    }
+    .info-item .detail strong { display: block; color: var(--navy); }
+    .info-item .detail span { color: var(--muted); font-size: .93rem; }
+
+    /* Contact form */
+    .contact-form {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+    }
+    .contact-form h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin-bottom: 24px;
+    }
+
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 7px;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #d4e1f0;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .97rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      background: #f9fcff;
+    }
+    /* Focused field highlight */
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--sky);
+      box-shadow: 0 0 0 4px rgba(26,111,196,.12);
+      background: var(--white);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    /* Error message shown by JS */
+    .error-msg {
+      color: #d93025;
+      font-size: .82rem;
+      margin-top: 5px;
+      display: none;          /* shown via JS when invalid */
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .submit-btn:hover { background: var(--sky); transform: translateY(-2px); }
+
+    /* Success message shown by JS after form submit */
+    #form-success {
+      display: none;
+      background: #e6f4ea;
+      border: 1px solid #81c784;
+      color: #2e7d32;
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      margin-top: 20px;
+      font-weight: 500;
+      animation: fadeIn .4s ease;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.65);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: .9rem;
+    }
+    footer strong { color: var(--white); }
+
+    /* ── RESPONSIVE: TABLET (≤ 900px) ── */
+    @media (max-width: 900px) {
+      .about-grid,
+      .contact-grid { grid-template-columns: 1fr; }
+      .courses-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-image { max-height: 300px; }
+    }
+
+    /* ── RESPONSIVE: MOBILE (≤ 600px) ── */
+    @media (max-width: 600px) {
+      /* Stack nav links vertically when hamburger is toggled */
+      .nav-links {
+        display: none;          /* hidden by default on mobile */
+        flex-direction: column;
+        position: absolute;
+        top: 68px; left: 0; right: 0;
+        background: var(--navy);
+        padding: 16px 24px 24px;
+        gap: 4px;
+        box-shadow: 0 8px 24px rgba(0,0,0,.3);
+      }
+      .nav-links.open { display: flex; } /* JS toggles this class */
+      .hamburger { display: flex; }      /* show hamburger on mobile */
+
+      .courses-grid { grid-template-columns: 1fr; }
+      .stats-grid   { grid-template-columns: repeat(2, 1fr); }
+      .contact-form { padding: 28px 20px; }
+      .btn-outline  { margin-left: 0; margin-top: 12px; }
+      .hero-content { text-align: center; }
+      .hero-content p { margin: 0 auto 36px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER & NAVIGATION
+       ============================================================ -->
+  <header>
+    <div class="container nav-inner">
+
+      <!-- Logo / School name -->
+      <a href="#home" class="nav-logo">
+        <div class="logo-icon">🎓</div>
+        <span>Greenfield Academy</span>
+      </a>
+
+      <!-- Navigation links -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home"    class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <!-- Hamburger button (visible on mobile) -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- ============================================================
+       HOME / HERO SECTION
+       ============================================================ -->
+  <section id="home">
+    <div class="container">
+      <div class="hero-content">
+
+        <span class="hero-badge">✨ Admissions Open 2025–26</span>
+
+        <h1>Shaping Tomorrow's<br>Leaders Today</h1>
+
+        <p>
+          Welcome to Greenfield Academy — where curiosity meets excellence.
+          We provide a nurturing environment that inspires students to learn,
+          grow, and achieve their full potential.
+        </p>
+
+        <!-- Buttons: one navigates to courses, one triggers JS welcome message -->
+        <div>
+          <a href="#courses" class="btn btn-primary">Explore Courses</a>
+          <button class="btn btn-outline" onclick="showWelcome()">Say Hello 👋</button>
+        </div>
+
+        <!-- Welcome popup (hidden; shown by showWelcome() in JS) -->
+        <div id="welcome-msg">
+          🌟 <strong>Welcome to Greenfield Academy!</strong><br>
+          We're so glad you're here. Explore and discover the best in education!
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Stats bar below hero ── -->
+  <div class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="num">1,200+</div>
+          <div class="label">Students Enrolled</div>
+        </div>
+        <div class="stat-item">
+          <div class="num">80+</div>
+          <div class="label">Qualified Teachers</div>
+        </div>
+        <div class="stat-item">
+          <div class="num">30+</div>
+          <div class="label">Courses Offered</div>
+        </div>
+        <div class="stat-item">
+          <div class="num">25</div>
+          <div class="label">Years of Excellence</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ABOUT SECTION
+       ============================================================ -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Image -->
+        <div class="about-image">
+          <img
+            src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80"
+            alt="Students learning in a modern classroom"
+          />
+        </div>
+
+        <!-- Text content -->
+        <div class="about-text">
+          <p class="hero-badge" style="background:var(--light);color:var(--sky);">Our Story</p>
+          <h2 class="section-title">A School Built on Excellence & Values</h2>
+          <p style="color:var(--muted);">
+            Founded in 1999, Greenfield Academy has been a cornerstone of quality education
+            for over two decades. We believe every child is unique, and our dedicated faculty
+            works tirelessly to unlock each student's potential through engaging, modern
+            teaching methods.
+          </p>
+
+          <!-- Core values list -->
+          <ul class="values-list">
+            <li>
+              <div class="icon">📚</div>
+              <div>
+                <strong>Academic Excellence</strong>
+                <p>Rigorous curriculum aligned with national standards and beyond.</p>
+              </div>
+            </li>
+            <li>
+              <div class="icon">🤝</div>
+              <div>
+                <strong>Inclusive Community</strong>
+                <p>A safe, welcoming space where every student belongs and thrives.</p>
+              </div>
+            </li>
+            <li>
+              <div class="icon">🌱</div>
+              <div>
+                <strong>Holistic Development</strong>
+                <p>Sports, arts, and clubs alongside academics for well-rounded growth.</p>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       COURSES SECTION
+       ============================================================ -->
+  <section id="courses">
+    <div class="container">
+
+      <div class="courses-header">
+        <h2 class="section-title">Our Featured Courses</h2>
+        <p class="section-subtitle">
+          Explore a wide range of programmes designed for every age and interest.
+        </p>
+      </div>
+
+      <div class="courses-grid">
+
+        <!-- Course Card 1: Science -->
+        <div class="course-card">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1532094349884-543559612b2d?w=600&q=80" alt="Science" />
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Grade 6–12</div>
+            <h3>Science & Technology</h3>
+            <p>
+              Hands-on labs, experiments, and projects that bring physics,
+              chemistry, and biology to life. Designed to build critical
+              thinking and problem-solving skills.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span>⏱ 1 Year</span>
+            <button class="enroll-btn" onclick="enrollAlert('Science & Technology')">Enroll Now</button>
+          </div>
+        </div>
+
+        <!-- Course Card 2: Mathematics -->
+        <div class="course-card">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&q=80" alt="Mathematics" />
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Grade 1–12</div>
+            <h3>Mathematics</h3>
+            <p>
+              From foundational arithmetic to advanced calculus — our structured
+              maths programme builds confidence and logical reasoning at every
+              level with personalised support.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span>⏱ 1 Year</span>
+            <button class="enroll-btn" onclick="enrollAlert('Mathematics')">Enroll Now</button>
+          </div>
+        </div>
+
+        <!-- Course Card 3: Creative Arts -->
+        <div class="course-card">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Creative Arts" />
+          </div>
+          <div class="card-body">
+            <div class="card-tag">All Ages</div>
+            <h3>Creative Arts</h3>
+            <p>
+              Painting, sculpture, music, drama, and digital art — we nurture
+              creativity alongside academics, helping students discover and
+              express their unique voice.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span>⏱ 1 Semester</span>
+            <button class="enroll-btn" onclick="enrollAlert('Creative Arts')">Enroll Now</button>
+          </div>
+        </div>
+
+        <!-- Course Card 4: Computer Science -->
+        <div class="course-card">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&q=80" alt="Computer Science" />
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Grade 5–12</div>
+            <h3>Computer Science</h3>
+            <p>
+              Coding, web development, robotics, and AI basics. Students learn
+              industry-relevant skills in a fun, project-based environment to
+              prepare for a digital future.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span>⏱ 1 Year</span>
+            <button class="enroll-btn" onclick="enrollAlert('Computer Science')">Enroll Now</button>
+          </div>
+        </div>
+
+        <!-- Course Card 5: Languages -->
+        <div class="course-card">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&q=80" alt="Languages" />
+          </div>
+          <div class="card-body">
+            <div class="card-tag">Grade 1–10</div>
+            <h3>Languages & Literature</h3>
+            <p>
+              English, Hindi, and French language courses that develop reading,
+              writing, and communication skills through storytelling, debates,
+              and creative writing workshops.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span>⏱ 1 Year</span>
+            <button class="enroll-btn" onclick="enrollAlert('Languages & Literature')">Enroll Now</button>
+          </div>
+        </div>
+
+        <!-- Course Card 6: Physical Education -->
+        <div class="course-card">
+          <div class="card-img">
+            <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600&q=80" alt="Physical Education" />
+          </div>
+          <div class="card-body">
+            <div class="card-tag">All Grades</div>
+            <h3>Physical Education & Sports</h3>
+            <p>
+              Football, basketball, swimming, yoga, and athletics. Physical
+              education builds teamwork, resilience, and lifelong healthy
+              habits in a state-of-the-art sports facility.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span>⏱ Full Year</span>
+            <button class="enroll-btn" onclick="enrollAlert('Physical Education')">Enroll Now</button>
+          </div>
+        </div>
+
+      </div><!-- /courses-grid -->
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT SECTION
+       ============================================================ -->
+  <section id="contact">
+    <div class="container">
+
+      <div style="text-align:center;">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-subtitle">
+          Have a question or want to learn more? We'd love to hear from you.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+
+        <!-- Contact information -->
+        <div class="contact-info">
+          <h3>Visit or Contact Us</h3>
+          <p>Our friendly team is available Monday to Saturday, 8 AM – 5 PM.</p>
+
+          <div class="info-items">
+            <div class="info-item">
+              <div class="icon">📍</div>
+              <div class="detail">
+                <strong>Address</strong>
+                <span>12 Knowledge Lane, Greenfield District, GF 560001</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="icon">📞</div>
+              <div class="detail">
+                <strong>Phone</strong>
+                <span>+91 98765 43210</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="icon">✉️</div>
+              <div class="detail">
+                <strong>Email</strong>
+                <span>info@greenfieldacademy.edu</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="icon">🕐</div>
+              <div class="detail">
+                <strong>Office Hours</strong>
+                <span>Mon–Sat: 8:00 AM – 5:00 PM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact form -->
+        <div class="contact-form">
+          <h3>Send Us a Message</h3>
+
+          <!-- The form — JS handles validation & submission -->
+          <form id="contactForm" novalidate>
+
+            <!-- Name field -->
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" placeholder="e.g. Priya Sharma" />
+              <span class="error-msg" id="nameError">⚠ Please enter your full name.</span>
+            </div>
+
+            <!-- Email field -->
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="e.g. priya@example.com" />
+              <span class="error-msg" id="emailError">⚠ Please enter a valid email address.</span>
+            </div>
+
+            <!-- Message field -->
+            <div class="form-group">
+              <label for="message">Your Message</label>
+              <textarea id="message" placeholder="Write your question or message here…"></textarea>
+              <span class="error-msg" id="messageError">⚠ Please enter your message.</span>
+            </div>
+
+            <!-- Submit button -->
+            <button type="button" class="submit-btn" onclick="validateForm()">
+              Send Message ✉️
+            </button>
+
+          </form>
+
+          <!-- Success message (hidden; shown by JS after successful submission) -->
+          <div id="form-success">
+            ✅ <strong>Message sent successfully!</strong><br>
+            Thank you for reaching out. We'll get back to you within 24 hours.
+          </div>
+
+        </div><!-- /contact-form -->
+
+      </div><!-- /contact-grid -->
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer>
+    <p>© 2025 <strong>Greenfield Academy</strong>. All rights reserved. Crafted with ❤️ for learners everywhere.</p>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+
+    /* ──────────────────────────────────────────────
+       1. MOBILE HAMBURGER MENU TOGGLE
+    ────────────────────────────────────────────── */
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('navLinks');
+
+    // When the hamburger button is clicked, toggle the 'open' class
+    hamburger.addEventListener('click', function () {
+      navLinks.classList.toggle('open');
+    });
+
+    // Close the menu when a nav link is clicked (good UX on mobile)
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navLinks.classList.remove('open');
+      });
+    });
+
+
+    /* ──────────────────────────────────────────────
+       2. ACTIVE NAV LINK — highlight current section
+    ────────────────────────────────────────────── */
+    const sections    = document.querySelectorAll('section[id]');
+    const allNavLinks = document.querySelectorAll('.nav-links a');
+
+    // Use IntersectionObserver to detect which section is on screen
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          // Remove 'active' from all links, then add to the matching one
+          allNavLinks.forEach(function (a) { a.classList.remove('active'); });
+          const id = entry.target.getAttribute('id');
+          const activeLink = document.querySelector('.nav-links a[href="#' + id + '"]');
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, { threshold: 0.45 });  // fire when 45 % of section is visible
+
+    sections.forEach(function (section) { observer.observe(section); });
+
+
+    /* ──────────────────────────────────────────────
+       3. WELCOME MESSAGE BUTTON (interactive feature)
+       Called by the "Say Hello 👋" button in the hero
+    ────────────────────────────────────────────── */
+    function showWelcome() {
+      var msg = document.getElementById('welcome-msg');
+
+      if (msg.style.display === 'block') {
+        // If already visible, hide it
+        msg.style.display = 'none';
+      } else {
+        // Otherwise show it with a fade-in animation
+        msg.style.display = 'block';
+        // Auto-hide after 4 seconds
+        setTimeout(function () { msg.style.display = 'none'; }, 4000);
+      }
+    }
+
+
+    /* ──────────────────────────────────────────────
+       4. ENROLL BUTTON ALERT (course cards)
+       Each card's "Enroll Now" button passes the
+       course name to this function
+    ────────────────────────────────────────────── */
+    function enrollAlert(courseName) {
+      alert('🎉 Thank you for your interest in "' + courseName + '"!\nOur admissions team will contact you shortly.');
+    }
+
+
+    /* ──────────────────────────────────────────────
+       5. CONTACT FORM VALIDATION
+    ────────────────────────────────────────────── */
+    function validateForm() {
+
+      // Grab input values (trim removes extra whitespace)
+      var name    = document.getElementById('name').value.trim();
+      var email   = document.getElementById('email').value.trim();
+      var message = document.getElementById('message').value.trim();
+
+      // Grab error message elements
+      var nameErr    = document.getElementById('nameError');
+      var emailErr   = document.getElementById('emailError');
+      var messageErr = document.getElementById('messageError');
+
+      // Start by hiding all error messages
+      nameErr.style.display    = 'none';
+      emailErr.style.display   = 'none';
+      messageErr.style.display = 'none';
+
+      var isValid = true; // assume valid until a check fails
+
+      // Check: name must not be empty
+      if (name === '') {
+        nameErr.style.display = 'block';
+        isValid = false;
+      }
+
+      // Check: email must match a basic email pattern
+      // The regex tests for something@something.something
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        emailErr.style.display = 'block';
+        isValid = false;
+      }
+
+      // Check: message must not be empty
+      if (message === '') {
+        messageErr.style.display = 'block';
+        isValid = false;
+      }
+
+      // If everything is valid, show success message and reset the form
+      if (isValid) {
+        // Hide the form inputs area (optional UX — keep if you like)
+        document.getElementById('contactForm').style.display = 'none';
+
+        // Show the success banner
+        document.getElementById('form-success').style.display = 'block';
+
+        // Also show a browser alert
+        alert('✅ Your message has been sent successfully!\nWe will get back to you within 24 hours.');
+      }
+    }
+
+  </script>
+
+</body>
+</html>
